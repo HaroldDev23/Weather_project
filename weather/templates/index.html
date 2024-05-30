@@ -1,0 +1,265 @@
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Mboa</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+</head>
+<body>
+    <div class="menu">
+        <div class="actif"><img src="{% static 'images/principal.svg' %}" alt="Accueil"></div>
+        <!--<div><img src="{% static 'images/file.svg' %}" alt="Files"></div>-->
+        <div><img src="{% static 'images/setting.svg' %}" alt="Setting"></div>
+        <div class="profil"></div>
+    </div>
+    <div class="params">
+        <div class="vpp">
+            <div class="temp">
+                <div>
+                    <h2>{{temperature.0}}°C</h2>
+                    <p>{{date|slice:':-5'}} </p>
+                </div>
+                <img src="{% static 'images/sun1.svg' %}" alt="">
+            </div>
+            <!-- Vitesse vent -->
+            <div class="param">
+                <div class="img"><img src="{% static 'images/vent.svg' %}" alt=""></div>
+                <div class="text">
+                    <p>Vent</p>
+                    <h3>{{wind_speed.0}} km/h</h3>
+                </div>
+                <div class="variation">
+                    <img src="{% static 'images/Arrow.svg' %}" alt="">
+                    <p>+{{wind_speed.1}} km/h</p>
+                </div>
+            </div>
+            <!--Pression-->
+            <div class="param">
+                <div class="img"><img src="{% static 'images/pression.svg' %}" alt=""></div>
+                <div class="text">
+                    <p>Pression</p>
+                    <h3>{{pressure.0}} mb</h3>
+                </div>
+                <div class="variation">
+                    <img src="{% static 'images/Arrow.svg' %}" alt="">
+                    <p>+{{pressure.1}} Hpa</p>
+                </div>
+            </div>
+            <!--Precipitation-->
+            <div class="param">
+                <div class="img"><img src="{% static 'images/rain.svg' %}" alt=""></div>
+                <div class="text">
+                    <p>Precipitation</p>
+                    <h3>{{precipitation.0}} mm</h3>
+                </div>
+                <div class="variation"> <!--Dynamique-->
+                    <img src="{% static 'images/Arrow2.svg' %}" alt="">
+                    <p class="negatif">-{{precipitation.1}}%</p>
+                </div>
+            </div>
+            
+        </div>
+        <div class="activite">
+            <!--Point de rosé-->
+            <div class="param">
+                <div class="img"><img src="{% static 'images/nature.svg' %}" alt=""></div>
+                <div class="text">
+                    <p>Point de rosé</p>
+                    <h3>{{rose.0}}°</h3>
+                </div>
+                <div class="variation"> <!--Dynamique-->
+                    <img src="{% static 'images/Arrow.svg' %}" alt="">
+                    <p>+{{rose.1}} °</p>
+                </div>
+            </div>
+
+            <!--Humidité-->
+            <div class="param">
+                <div class="img"><img src="{% static 'images/humidity.svg' %}" alt=""></div>
+                <div class="text">
+                    <p>Humidité</p>
+                    <h3>{{humidity.0}}%</h3>
+                </div>
+                <div class="variation"> <!--Dynamique-->
+                    <img src="{% static 'images/Arrow.svg' %}" alt="">
+                    <p>+{{humidity.1}}%</p>
+                </div>
+            </div>
+
+            <!--Visibilité-->
+            <div class="param">
+                <div class="img"><img src="{% static 'images/visible.svg' %}" alt=""></div>
+                <div class="text">
+                    <p>Visibilité</p>
+                    <h3>{{couverture.0}} km</h3>
+                </div>
+                <div class="variation"> <!--Dynamique-->
+                    <img src="{% static 'images/Arrow2.svg' %}" alt="">
+                    <p class="negatif">-{{couverture.1}} km</p>
+                </div>
+            </div>
+
+            <!--Indice UV max-->
+            <div class="param">
+                <div class="img"><img src="{% static 'images/uv.svg' %}" alt=""></div>
+                <div class="text">
+                    <p>Indice UV max</p>
+                    <h3>{{uv.0}} High</h3>
+                </div>
+                <div class="variation"> <!--Dynamique-->
+                    <img src="{% static 'images/Arrow2.svg' %}" alt="">
+                    <p class="negatif">-{{uv.1}} High</p>
+                </div>
+            </div>
+
+            <div class="trait"></div>
+
+            <!--Activités et Securité-->
+            <div class="acti">
+                <h1>Activités</h1>
+                <!--Parapluies-->
+                <div>
+                    <div class="img"><img src="{% static 'images/umbrella.svg' %}" alt=""></div>
+                    <div>
+                        <h3>Parapluies</h3>
+                        <p class="no">Pas besoin</p>
+                    </div>
+                </div>
+                <!--Exterieur-->
+                <div>
+                    <div class="img"><img src="{% static 'images/run.svg' %}" alt=""></div>
+                    <div>
+                        <h3>Exterieur</h3>
+                        <p class="equi">Equilibre</p>
+                    </div>
+                </div>
+                <!--Indice UV-->
+                <div>
+                    <div class="img"><img src="{% static 'images/run.svg' %}" alt=""></div>
+                    <div>
+                        <h3>Indice UV</h3>
+                        <p class="high">High</p>
+                    </div>
+                </div>
+                <!--Conduite-->
+                <div>
+                    <div class="img"><img src="{% static 'images/car.svg' %}" alt=""></div>
+                    <div>
+                        <h3>Conduite</h3>
+                        <p class="excel">Excellent</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="principal">
+        <div class="navbar">
+            <div class="logo">
+                <img src="{% static 'images/logo.svg' %}" alt="Logo" style="width: 40%;">
+                <div class="name">
+                    <p>Weather</p>
+                    <h1>MBOA</h1>
+                </div>
+            </div>
+            
+            <div class="search">
+                <input type="text" placeholder="Search rooms and devices ">
+                <img src="{% static 'images/search.svg' %}" alt="Search">
+            </div>
+            <div class="notif">
+                <img src="{% static 'images/notif.svg' %}" alt="Notification">
+                <div></div>
+            </div>
+        </div>
+
+        <div class="ville">
+            <p><span>Douala</span>, Littoral {{temperature.0}}°C</p>
+        </div>
+
+        <div class="date">
+            <a href="/"><div class="day0 actif">Aujourd'hui</div></a> 
+            <a href="day1"><div class="day1">Demain</div></a>
+            <a href="day2"><div class="day2">{{hebdo.1}}</div></a>
+            <a href="day3"><div class="day3">{{hebdo.2}}</div></a>
+            <a href="day4"><div class="day4">{{hebdo.3}}</div></a>
+            <a href="day5"><div class="day5">{{hebdo.4}}</div></a>
+            <a href="day6"><div class="day6">{{hebdo.5}}</div></a>
+
+        </div>
+
+        <div class="predict">
+            <div class="first">
+                <div class="met">
+                    <p>Meteo Actuelle</p>
+                    <img src="{% static 'images/temps.png' %}" alt="Actuel">
+                    <h2>Douala</h2>
+                    <h1>{{temperature.0}} <span>°C</span></h1>
+                    <p>Realfeel {{temperation_soil.0}}°</p>
+
+                </div>
+                <p>{{date}}</p>
+            </div>
+
+            <div class="second">
+                <h1>Prevision meteorologique</h1>
+                <div class="ligne"></div>
+                
+                {% for param in fparams %}
+                    <div>
+                        <div>
+                            <h2>{{param.3}} h</h2>
+                            <img src="{% static 'images/rainy.png' %}" alt="">
+                        </div>
+                        <div class="fparams">
+                            <img src=".static/images/drop.svg" alt="">
+                            <p>{{param.2}}%</p>
+                            <h3>{{param.0}}°</h3>
+                            <div class="bar"></div>
+                            <h3>{{param.1}}°</h3>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            </div>
+        </div>
+        <div class="conseil">
+            <div class="vetem">
+                <div style="flex-direction: column;">
+                    <h1>Vetements</h1>
+                    <div class="ligne"></div>
+                </div>
+                <div>
+                    <img src="{% static 'images/Arrow L.png' %}" alt="">
+                    <div>
+                        <img src="{% static 'images/tshirt.png' %}" alt="">
+                        <img src="{% static 'images/short.png' %}" alt="">
+                    </div>
+                    <img src="{% static 'images/Arrow R.png' %}" alt="">
+                </div>
+                <p>Habillez vous leger</p>
+            </div>
+            
+            <div class="sante">
+                <div>
+                    <h1>Conseils Santés</h1>
+                    <div class="ligne"></div>
+                </div>
+                <div class="cons">
+                    <p>{{sante}}</p>
+                </div>
+
+            </div>
+            <div class="pub">
+                <video src="{% static 'videos/logo_Tgnix.mp4' %}" autoplay controls loop></video>
+            </div>
+            
+        </div>
+    </div>
+    <script src={% static 'script.js' %}>
+
+    </script>
+</body>
+</html>
