@@ -253,13 +253,20 @@
 
             </div>
             <div class="pub">
-                <video src="{% static 'videos/logo_Tgnix.mp4' %}" autoplay controls loop></video>
+                {% if pub == 0 %}
+                <video src="{% static 'videos/Tgnix2.mp4' %}" autoplay controls loop></video>
+                {% elif pub == 1 %}
+                <video src="{% static 'videos/Tgnix.mp4' %}" autoplay controls loop></video>
+                {% elif pub == 2 %}
+                <img src="{% static 'images/Pub-TV.png' %}" style="height: inherit;">
+                {% elif pub == 3 %}
+                <img src="{% static 'images/COMING1.png' %}" style="height: inherit;">
+                {% endif %}
             </div>
             
         </div>
     </div>
     <script src={% static 'script.js' %}>
-
     </script>
 </body>
 </html>

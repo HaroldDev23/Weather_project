@@ -23,9 +23,9 @@ urlpatterns = [
     path("", day),
     path("day1", day1),
     path("day2", day2),
-    path("day3", day2),
-    path("day4", day2),
-    path("day5", day2),
-    path("day6", day2),
+    path("day3", day3),
+    path("day4", day4),
+    path("day5", day5),
+    path("day6", day6),
     path("weather", weather_view)
 ]

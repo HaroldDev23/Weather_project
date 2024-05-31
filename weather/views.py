@@ -1,17 +1,38 @@
 from django.shortcuts import render
 from .models import *
 
-def day(request):
-    predict = days(30)
-    return render(request, 'index.html', context=predict)
 # Create your views here.
+def day(request):
+    predict = days(167)
+    return render(request, 'index.html', context=predict)
+
 
 def day1(request):
-    predict = days(20)
+    predict = days(144)
     return render(request, 'index.html', context=predict)
 
 def day2(request):
-    predict = days(10)
+    predict = days(120)
+    return render(request, 'index.html', context=predict)
+
+def day3(request):
+    predict = days(96)
+    return render(request, 'index.html', context=predict)
+
+def day4(request):
+    predict = days(72)
+    return render(request, 'index.html', context=predict)
+
+def day5(request):
+    predict = days(48)
+    return render(request, 'index.html', context=predict)
+
+def day6(request):
+    predict = days(24)
+    return render(request, 'index.html', context=predict)
+
+def day7(request):
+    predict = days(0)
     return render(request, 'index.html', context=predict)
 
 def hebdo(jour):
@@ -26,7 +47,7 @@ def hebdo(jour):
 
 def days(n):
     maintenant = datetime.datetime.now() 
-    futur = maintenant + datetime.timedelta(hours=30-n)
+    futur = maintenant + datetime.timedelta(hours=168-n)
     jour = maintenant.strftime('%A').capitalize()
     
     predict = {'date': futur.strftime('%A, %d %B %H:%M').capitalize, 
@@ -43,12 +64,14 @@ def days(n):
     fparams = []
     for i in range(1,5):
         L = list(WeatherPredict.objects.values_list('temperature', 'temperation_soil', 'humidity').order_by('-id')[n-i])
-        L.append(int(maintenant.strftime('%H'))+i)
+        L.append(int(futur.strftime('%H'))+i)
         fparams.append([int(i) for i in L])
 
     predict['fparams'] = fparams
-    predict['sante'] = random.choice(conseil_sante(predict['temperature'][0], predict['humidity'][0], predict['wind_speed'][0]))
+    predict['sante'] = random.choice(["Assurez-vous de rester hydraté(e) tout au long de la journée. Boire suffisamment d'eau est essentiel pour maintenir votre santé."]+conseil_sante(predict['temperature'][0], predict['humidity'][0], predict['wind_speed'][0]))
     #print(predict['fparams'])
+    
+    predict['pub'] = random.choice([i for i in range(4)])
     
     return predict
 
@@ -134,8 +157,8 @@ def add_data(n=1):
     t += i
     dump(t, './save_model/time.joblib')
 
-#add_data(1)
-parms = parms = ['temperature','precipitation', 'humidity', 'wind_speed',
+
+parms  = ['temperature','precipitation', 'humidity', 'wind_speed',
                      'couverture', 'uv','pressure','evapotranspiration', 'temperation_soil']
 def prediction():
     prediction = {}
@@ -146,8 +169,7 @@ def prediction():
         pred = model.predict(x_pred)[0,0]
         #prediction.append(model.predict(x_pred)[0,0])
         #if pred < 0 and parm not in ['temperature', 'temperation_soil']:
-        #
-        # pred = 0
+        #pred = 0
         
         prediction[parm] = pred
     
@@ -183,8 +205,9 @@ def futur_predict(h):
         predict = WeatherPredict.objects.create(**prediction)     
         predict.save()   
 
-#add_data(10)
-#futur_predict(24)
+
+add_data(10)
+#futur_predict(168)
 
 planificateur = sched.scheduler(time.time, time.sleep)
 
